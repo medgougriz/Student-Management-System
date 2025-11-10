@@ -1,19 +1,34 @@
-let fullname = document.getElementById('fullname')
-let email = document.getElementById('email')
-let score = document.getElementById('score')
-let add = document.getElementById('add')
-let UT = 'add'
-let num;
+var fullname = document.getElementById('fullname')
+var email = document.getElementById('email')
+var score = document.getElementById('score')
+var add = document.getElementById('add')
+var UT = 'add'
+var D = 'nd'
+var num;
 
-let Database = []
+var Database = []
+
+score.addEventListener("input",function number(){
+if(isNaN(score.value) === true || Number(score.value)<0 || Number(score.value)>=100){
+    score.setAttribute('disabled',true);
+    score.value ='';
+    D = 'd'
+}
+if(D='d'){
+    score.removeAttribute('disabled');
+    D = 'nd'
+}
+})
+
 
 // create
 function create(){
-    let student = {
+    var student = {
         fullname:fullname.value,
         email:email.value,
         score:score.value,
     };
+
     if(fullname.value !== '' && email.value !== '' && score.value !==''){
         if(UT === 'add'){Database[Database.length] = student}
         else{
@@ -28,8 +43,8 @@ function create(){
 
 // read
 function read(){
-    let table = ''
-    for(let i=0; i<Database.length; i++){
+    var table = ''
+    for(var i=0; i<Database.length; i++){
         table +=  `<tr>
                     <td>${i+1}</td>
                     <td>${Database[i].fullname}</td>
