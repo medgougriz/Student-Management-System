@@ -64,7 +64,7 @@ function create() {
             document.getElementById('Add').innerHTML = 'Add'
         }
     }
-
+    if(em === 'fl'){alert('The email address is incorrect. It should be written as: example@example.example.')}
     
 
     localStorage.setItem('student', JSON.stringify(Database))
