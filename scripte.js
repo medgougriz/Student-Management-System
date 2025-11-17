@@ -5,7 +5,7 @@ var add = document.getElementById('add')
 var UT = 'add'
 var D = 'nd'
 var num;
-
+var em ;
 var Database
 if (localStorage.student != null) {
     Database = JSON.parse(localStorage.student)
@@ -13,12 +13,15 @@ if (localStorage.student != null) {
     Database = [];
 }
 
+// evant for verification fullname
+fullname.addEventListener("input",function string(){
+    fullname.value = fullname.value.replace(/[^a-zA-Z\u0600-\u06FF\s]/g, '');
+})
 
 
-
-
+// event for verification score
 score.addEventListener("input", function number() {
-    if (isNaN(score.value) === true || Number(score.value) < 0 || Number(score.value) >= 100) {
+    if (isNaN(score.value) === true || Number(score.value) < 0 || Number(score.value) > 100) {
         score.setAttribute('disabled', true);
         score.value = '';
         D = 'd'
@@ -38,7 +41,22 @@ function create() {
         score: score.value,
     };
 
-    if (fullname.value !== '' && email.value !== '' && score.value !== '') {
+    // event for verification email
+
+    if (!email.value.includes("@") || !email.value.includes(".")){
+        em = "fl"
+    } else {
+        let atIndex = email.value.indexOf("@");
+        let dotIndex = email.value.indexOf(".", atIndex);
+        
+        if (dotIndex > atIndex) {
+            em = "tr";
+        } else {
+             em = "fl";
+        }
+    }
+
+    if (fullname.value !== '' && email.value !== '' && score.value !== '' && em ==='tr') {
         if (UT === 'add') { Database[Database.length] = student }
         else {
             Database[num] = student
@@ -46,6 +64,8 @@ function create() {
             document.getElementById('Add').innerHTML = 'Add'
         }
     }
+
+    
 
     localStorage.setItem('student', JSON.stringify(Database))
     read()
